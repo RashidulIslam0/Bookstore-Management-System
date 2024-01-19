@@ -1,17 +1,19 @@
-import react from 'react'
-
-import './App.css'
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Import 'Routes' in addition to 'Route'
+import Home from "./Components/Home";
+import Navbar from "./Components/Navbar";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1>Rasct App
-        
-      </h1>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
