@@ -1,0 +1,42 @@
+/* YourComponent.css */
+
+.hero {
+  display: flex;
+
+  background-color: #301934;
+  height: 90vh;
+  padding-inline: 30px;
+  color: #ffc107;
+}
+
+.hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  word-spacing: 1%;
+}
+
+.hero-desc {
+  font-size: 1.2rem;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+.hero-image {
+  flex: 1;
+  background: url("/shoop.jpeg") center;
+  background-size: 90%;
+  background-repeat: no-repeat;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
