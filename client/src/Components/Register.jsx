@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    password: "",
+    role: "user",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("Form submitted:", formData);
+  };
   return (
     <>
       <div className=" w-50 mx-auto  my-5">
         <h2>Register</h2>
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Neme:</label>
             <input
@@ -14,6 +31,9 @@ const Register = () => {
               className="form-control"
               id="name"
               placeholder="Enter Your Name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
               required
             />
           </div>
@@ -23,7 +43,10 @@ const Register = () => {
               type="text"
               className="form-control"
               id="phone"
-              placeholder="Enter Your Name"
+              name="phone"
+              placeholder="Enter Your Phone Number"
+              value={formData.phone}
+              onChange={handleChange}
               required
             />
           </div>
@@ -33,7 +56,10 @@ const Register = () => {
               type="email"
               className="form-control"
               id="email"
+              name="email"
               placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
               required
             />
           </div>
@@ -43,13 +69,22 @@ const Register = () => {
               type="password"
               className="form-control"
               id="password"
+              name="password"
               placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
               required
             />
           </div>
           <div className="form-group">
             <label htmlFor="role">Role:</label>
-            <select className="form-control" id="role" name="role">
+            <select
+              className="form-control"
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+            >
               <option value="admin">Admin</option>
               <option value="user">Student</option>
             </select>
