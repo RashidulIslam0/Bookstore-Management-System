@@ -19,12 +19,37 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // try {
+    //   const response = await axios
+    //     .post("http://localhost:3000/api/v1/admin/login", formData)
+
+    //     .then((res) => {
+    //       if (res.deta.login && res.data.role == "admin") {
+    //         navigate("/dashboard");
+    //       } else if (res.deta.login && res.data.role == "student") {
+    //         navigate("/");
+    //       }
+    //     });
+
+    //   console.log("Server response:", response.data);
+    // } catch (error) {
+    //   console.error("Error during login:", error);
+    // }
+
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/admin/login",
         formData
       );
-      navigate("/dashboard");
+
+      if (response.data.login) {
+        if (response.data.role === "admin") {
+          navigate("/dashboard");
+        } else if (response.data.role === "student") {
+          navigate("/");
+        }
+      }
+
       console.log("Server response:", response.data);
     } catch (error) {
       console.error("Error during login:", error);

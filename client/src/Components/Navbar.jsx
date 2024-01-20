@@ -14,18 +14,23 @@ const Navbar = () => {
 
         <div className=" navbar-right">
           <Link className="navbar-link" to="/books">
-            Book Store
+            Books
           </Link>
 
-          <Link className="navbar-link" to="/addbook">
-            Add Book
-          </Link>
-          <Link className="navbar-link" to="/addstudent">
-            Add Student
-          </Link>
-          <Link className="navbar-link" to="/dashboard">
-            Dashboard
-          </Link>
+          {role === "admin" && (
+            <>
+              <Link className="navbar-link" to="/addbook">
+                Add Book
+              </Link>
+              <Link className="navbar-link" to="/addstudent">
+                Add Student
+              </Link>
+              <Link className="navbar-link" to="/dashboard">
+                Dashboard
+              </Link>
+            </>
+          )}
+
           <Link className="navbar-link" to="/login">
             Login
           </Link>

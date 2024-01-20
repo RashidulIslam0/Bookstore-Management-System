@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const admin = require("../models/adminModels");
-
+const Student = require("../models/StudentModels");
 router.post("/register", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -71,27 +71,40 @@ router.post("/login", async (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
     }
   } else if (role === "student") {
-    // Implement student login logic here
+    try {
+      const studentData = await Student.findOne({ email });
+
+      if (!studentData) {
+        return res.status(401).json({ message: "Student not registered" });
+      }
+
+      const isPasswordValid = await bcrypt.compare(
+        password,
+        studentData.password
+      );
+
+      if (!isPasswordValid) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+
+      const token = jwt.sign(
+        { email: studentData.email, role: "student" },
+        process.env.STUDENT_KEY
+      );
+
+      res.cookie("token", token, { httpOnly: true, secure: true });
+      res.status(200).json({
+        message: "Login successful",
+        token,
+        role: role === "admin" ? "admin" : "student",
+      });
+    } catch (error) {
+      console.error("Error during student login:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   } else {
     res.status(400).json({ error: "Invalid role" });
   }
 });
 
-// // Middleware to verify admin token
-// const verifyAdmin = (req, res, next) => {
-//   const token = req.cookies.token;
-//   if (!token) {
-//     return res.status(404).json({ message: "Invalid Admin" });
-//   } else {
-//     jwt.verify(token, process.env.ADMIN_KEY, (err, decoded) => {
-//       if (err) {
-//         return res.status(403).json({ message: "Invalid token" });
-//       } else {
-//         req.email = decoded.email;
-//         req.role = decoded.role;
-//         next();
-//       }
-//     });
-//   }
-// };
 module.exports = router;
