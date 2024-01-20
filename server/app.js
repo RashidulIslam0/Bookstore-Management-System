@@ -6,7 +6,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const connectDB = require("./DB/db");
-const userRouter = require("./routes/adminRoutes");
+
+const adminRouter = require("./routes/adminRoutes");
 const studentRouter = require("./routes/studentRoutes");
 const app = express();
 app.use(morgan("dev"));
@@ -16,7 +17,7 @@ app.use(cookieParser());
 
 const PORT = 3000;
 
-app.use("/api/v1/admin", userRouter);
+app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/student", studentRouter);
 
 app.get("/", (req, res) => {
