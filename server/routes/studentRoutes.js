@@ -3,8 +3,10 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const verifyAdmin = require("./adminRoutes");
+
 const Student = require("../models/StudentModels");
-router.post("/register", async (req, res) => {
+router.post("/register", verifyAdmin, async (req, res) => {
   try {
     const { roll, name, email, password, grade } = req.body;
 
