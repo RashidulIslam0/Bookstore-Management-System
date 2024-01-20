@@ -2,27 +2,20 @@ const express = require("express");
 // const mongoose = require("mongoose");
 const morgan = require("morgan");
 require("dotenv").config();
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const connectDB = require("./DB/db");
+const userRouter = require("./routes/adminRoutes"); // Import the userRouter
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cors());
+app.use(cookieParser());
 
 const PORT = 3000;
 
-// const connectDB = async () => {
-//   try {
-//     await mongoose.connect(
-//       "mongodb+srv://databse:databse@cluster0.0uvlwtl.mongodb.net/test-db"
-//     );
-//     console.log("db is connected");
-//   } catch (error) {
-//     console.log("db is not connected");
-
-//     console.log(error.message);
-//     process.exit(1);
-//   }
-// };
+app.use("/api/v1/admin", userRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello Wordl");
