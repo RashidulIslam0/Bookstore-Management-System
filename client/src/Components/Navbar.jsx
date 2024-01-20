@@ -16,6 +16,16 @@ const Navbar = () => {
           <Link className="navbar-link" to="/books">
             Book Store
           </Link>
+
+          <Link className="navbar-link" to="/addbook">
+            Add Book
+          </Link>
+          <Link className="navbar-link" to="/addstudent">
+            Add Student
+          </Link>
+          <Link className="navbar-link" to="/dashboard">
+            Dashboard
+          </Link>
           <Link className="navbar-link" to="/login">
             Login
           </Link>
