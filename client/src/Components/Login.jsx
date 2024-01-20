@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/Login.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
@@ -9,6 +10,7 @@ const Login = () => {
     role: "student",
   });
 
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -22,7 +24,7 @@ const Login = () => {
         "http://localhost:3000/api/v1/admin/login",
         formData
       );
-
+      navigate("/dashboard");
       console.log("Server response:", response.data);
     } catch (error) {
       console.error("Error during login:", error);
