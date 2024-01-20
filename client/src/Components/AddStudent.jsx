@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const AddStudent = () => {
   const [formData, setFormData] = useState({
     roll: "",
@@ -9,6 +9,8 @@ const AddStudent = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -18,7 +20,12 @@ const AddStudent = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/", formData);
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/student/register",
+        formData
+      );
+      navigate("/dashboard");
+
       console.log("Server response:", response.data);
     } catch (error) {
       console.error("Error during login:", error);
