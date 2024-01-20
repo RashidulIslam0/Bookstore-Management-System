@@ -1,18 +1,32 @@
 import React, { useState } from "react";
 import "../css/Login.css";
+import axios from "axios";
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    role: "user",
+    role: "student",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/admin/login",
+        formData
+      );
+
+      console.log("Server response:", response.data);
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
 
     console.log("Form submitted:", formData);
   };
@@ -57,7 +71,7 @@ const Login = () => {
               onChange={handleChange}
             >
               <option value="admin">Admin</option>
-              <option value="user">Student</option>
+              <option value="student">Student</option>
             </select>
           </div>
           <button type="submit" className="btn btn-primary">

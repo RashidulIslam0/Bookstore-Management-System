@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
 
   if (role === "admin") {
     try {
-      const foundAdmin = await adminModel.findOne({ email });
+      const foundAdmin = await admin.findOne({ email });
 
       if (!foundAdmin) {
         return res.status(401).json({ message: "Admin not registered" });
