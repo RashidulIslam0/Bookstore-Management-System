@@ -6,7 +6,9 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const connectDB = require("./DB/db");
-const userRouter = require("./routes/adminRoutes"); // Import the userRouter
+const adminRouter = require("./routes/adminRoutes"); // Import the userRouter
+const studentRouter = require("./routes/studentRoutes"); // Import the userRouter
+
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
@@ -15,7 +17,8 @@ app.use(cookieParser());
 
 const PORT = 3000;
 
-app.use("/api/v1/admin", userRouter);
+app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/student", studentRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello Wordl");
