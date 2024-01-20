@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const connectDB = require("./DB/db");
 
 const adminRouter = require("./routes/adminRoutes");
-const studentRouter = require("./routes/studentRoutes");
+const studentRouter = require("./routes/studentRoutes"); // Import the userRouter
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
